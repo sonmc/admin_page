@@ -1,0 +1,63 @@
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Trang chủ</a></li>
+            <li class="breadcrumb-item">Quản lí loại sản phẩm</li>
+        </ol>
+        <button class="btn btn-success btn-sm">+ Thêm</button>
+    </div>
+    <div class="d-sm-flex align-items-center justify-content-between mb-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Tìm kiếm</li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="table-responsive p-3" style="padding-bottom: 0.5rem!important">
+                    <form>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Tên loại sản phẩm</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="inputEmail3"
+                                    placeholder="Tên loại sản phẩm">
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên loại sản phẩm</th>
+                                <th>Tác vụ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ca of categories; index as i">
+                                <td>{{i}}</td>
+                                <td>{{ca.Name_Category}}</td>
+                                <td>
+                                    <button type="button" (click)="openModalUpdate(ca)"
+                                        class="btn btn-primary btn-sm">Sửa</button>
+                                    <button type="button" (click)="remove(ca.ID)"
+                                        class="btn btn-danger btn-sm">Xoá</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

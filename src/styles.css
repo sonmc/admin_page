@@ -1,0 +1,13 @@
+.form-group {
+  margin-bottom: 0.5rem;
+}
+.breadcrumb {
+  font-size: 18px;
+  font-weight: 100;
+  margin-bottom: 0 !important;
+  padding: 0px 0px 0px 0px;
+}
+.container-fluid {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}

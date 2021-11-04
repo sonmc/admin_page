@@ -1,0 +1,58 @@
+<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" (click)="goPage('/user')"
+        href="javascript:;">
+        <div class="sidebar-brand-text mx-3">Hệ thống quản lí</div>
+    </a>
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item">
+        <a class="nav-link" (click)="goPage('/user')" href="javascript:;">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Bàn làm việc</span></a>
+    </li>
+    <hr class="sidebar-divider">
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#userCollapse" aria-expanded="true"
+            aria-controls="collapseBootstrap">
+            <i class="far fa-fw fa-user"></i>
+            <span>Người dùng</span>
+        </a>
+        <div id="userCollapse" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" (click)="goPage('/user')" href="javascript:;">Quản lí người dùng</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productCollapse"
+            aria-expanded="true" aria-controls="collapseBootstrap">
+            <i class="far fa-fw fa-window-maximize"></i>
+            <span>Hàng hoá</span>
+        </a>
+        <div id="productCollapse" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" (click)="goPage('/product-type')" href="javascript:;">Quản lí loại sản phẩm</a>
+                <a class="collapse-item" (click)="goPage('/product')" href="javascript:;">Quản lí sản phẩm</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#campaignCollapse"
+            aria-expanded="true" aria-controls="collapseBootstrap">
+            <i class="fab fa-fw fa-wpforms"></i>
+            <span>Chiến dịch</span>
+        </a>
+        <div id="campaignCollapse" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" (click)="goPage('/event')" href="javascript:;">Sự kiện</a>
+                <a class="collapse-item" (click)="goPage('/advertise')" href="javascript:;">Quảng cáo</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#statisticalCollapse"
+            aria-expanded="true" aria-controls="statisticalCollapse">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Thống kê</span>
+        </a>
+    </li>
+</ul>

@@ -1,0 +1,167 @@
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Trang chủ</a></li>
+            <li class="breadcrumb-item">Quản lí người dùng</li>
+        </ol>
+        <button (click)="openModalCreate('')" class="btn btn-success btn-sm">+ Thêm</button>
+    </div>
+    <div class="d-sm-flex align-items-center justify-content-between mb-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Tìm kiếm</li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="table-responsive p-3" style="padding-bottom: 0.5rem!important">
+                    <form>
+                        <div class="form-group row">
+                            <label for="taikhoanSearch" class="col-sm-1 col-form-label">Tài khoản</label>
+                            <div class="col-sm-11">
+                                <input type="text" [(ngModel)]="dataSearch.taikhoan" name="taikhoanSearch"
+                                    class="form-control" id="taikhoanSearch" placeholder="Tài khoản">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="hotenSearch" class="col-sm-1 col-form-label">Họ tên</label>
+                            <div class="col-sm-11">
+                                <input type="text" [(ngModel)]="dataSearch.hoten" name="hotenSearch"
+                                    class="form-control" id="hotenSearch" placeholder="Họ tên">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <button type="button" (click)="search()" class="btn btn-primary">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>STT</th>
+                                <th>Tài khoản</th>
+                                <th>Email</th>
+                                <th>Họ tên</th>
+                                <th>Địa chỉ</th>
+                                <th>Loại quyền</th>
+                                <th>Tác vụ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users;index as i">
+                                <td>{{i+1}}</td>
+                                <td>{{user.taikhoan}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.hoten}}</td>
+                                <td>{{user.diachi}}</td>
+                                <td>{{user.role}}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" (click)="openModalCreate(user)">Chỉnh
+                                        Sửa</button>
+                                    <button class="btn btn-danger btn-sm" (click)="remove(user.user_id)">Xoá</button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="users.length<1">
+                                <td>Không có dữ liệu !</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nhập thông tin người dùng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="hoten">Họ tên(<span style="color:red">*</span>)</label>
+                                <input type="email" [(ngModel)]="user.hoten" class="form-control" name="hoten">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="ngaysinh">Ngày sinh(<span style="color:red">*</span>)</label>
+
+                                <input type="date" (change)='updateNgaySinh($event)'
+                                    [value]="user.ngaysinh | date:'yyyy-MM-dd'" class=" form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="email">Email(<span style="color:red">*</span>)</label>
+                                <input type="email" [(ngModel)]="user.email" class="form-control" name="email">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="gioitinh">Giới tính(<span style="color:red">*</span>)</label>
+                                <select class="form-control" [(ngModel)]="user.gioitinh" name="gioitinh" id="gioitinh">
+                                    <option selected value="name">Nam</option>
+                                    <option value="nu">Nữ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" [(ngModel)]="user.diachi" class="form-control" name="address">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="avatar">Ảnh đại diện</label>
+                            <input type="file" (change)="uploadFile($event)" class="form-control" id="avatar">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="taikhoan">Tài khoản(<span style="color:red">*</span>)</label>
+                                <input type="text" [(ngModel)]="user.taikhoan" class="form-control" name="taikhoan">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="role">Loại quyền(<span style="color:red">*</span>)</label>
+                                <select class="form-control" [(ngModel)]="user.role" name="role" id="role">
+                                    <option value="admin">Quản trị viên</option>
+                                    <option value="user-normal">Người dùng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="matkhau">Mật khẩu(<span style="color:red">*</span>)</label>
+                                <input type="password" [(ngModel)]="user.matkhau" class="form-control" name="matkhau">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="confirmPwd">Nhập lại mật khẩu(<span style="color:red">*</span>)</label>
+                                <input type="password" [(ngModel)]="user.confirmPwd" class="form-control"
+                                    id="confirmPwd" name="confirmPwd">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <h4 style="color: red;"><i>{{messageError}}</i></h4>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" (click)="resetFormAddUser()" class="btn btn-default">Làm mới</button>
+                    <button type="button" (click)="save()" class="btn btn-success">Đồng ý</button>
+                    <button type="button" (click)="close()" class="btn btn-default">Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
