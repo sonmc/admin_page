@@ -11,7 +11,7 @@ export class CategoryService {
 
   search = (dataSearch: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}users/search`;
+      let url = `${API_URL}api/categories/search`;
       this.apiService.postWithToken(url, dataSearch).subscribe(
         (res) => {
           resolve(res);
@@ -25,7 +25,7 @@ export class CategoryService {
 
   get = (): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}categories/get-all`;
+      let url = `${API_URL}api/categories/get-all`;
       this.apiService.getWithToken(url).subscribe(
         (res) => {
           resolve(res);
@@ -36,9 +36,10 @@ export class CategoryService {
       );
     });
   };
+
   create = (user: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}users/create-user`;
+      let url = `${API_URL}api/categories/create-cat`;
       this.apiService.postWithToken(url, user).subscribe(
         (res) => {
           resolve(res);
@@ -49,9 +50,10 @@ export class CategoryService {
       );
     });
   };
+
   update = (user: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}users/update-user`;
+      let url = `${API_URL}api/categories/update-cat`;
       this.apiService.postWithToken(url, user).subscribe(
         (res) => {
           resolve(res);
@@ -65,7 +67,7 @@ export class CategoryService {
 
   uploadFile = (userId: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}users/uploadFile`;
+      let url = `${API_URL}api/categories/uploadFile`;
       this.apiService.getWithToken(url).subscribe(
         (res) => {
           resolve(res);
@@ -77,9 +79,9 @@ export class CategoryService {
     });
   };
 
-  remove = (userId: any): Promise<Object> => {
+  remove = (categoryId: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}users/delete-user?userId=${userId}`;
+      let url = `${API_URL}api/categories/delete-cat?id=${categoryId}`;
       this.apiService.getWithToken(url).subscribe(
         (res) => {
           resolve(res);

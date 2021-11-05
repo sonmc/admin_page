@@ -6,12 +6,12 @@ import { API_URL } from '../../constants/config';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class AdvertiseService {
   constructor(public apiService: ApiService) {}
 
   search = (dataSearch: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}api/users/search`;
+      let url = `${API_URL}api/advertises/search`;
       this.apiService.postWithToken(url, dataSearch).subscribe(
         (res) => {
           resolve(res);
@@ -25,7 +25,7 @@ export class UserService {
 
   get = (): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}api/users/get-all`;
+      let url = `${API_URL}api/advertises/get-all`;
       this.apiService.getWithToken(url).subscribe(
         (res) => {
           resolve(res);
@@ -36,9 +36,10 @@ export class UserService {
       );
     });
   };
+
   create = (user: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}api/users/create-user`;
+      let url = `${API_URL}api/advertises/create-adv`;
       this.apiService.postWithToken(url, user).subscribe(
         (res) => {
           resolve(res);
@@ -49,9 +50,10 @@ export class UserService {
       );
     });
   };
+
   update = (user: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}api/users/update-user`;
+      let url = `${API_URL}api/advertises/update-adv`;
       this.apiService.postWithToken(url, user).subscribe(
         (res) => {
           resolve(res);
@@ -65,7 +67,7 @@ export class UserService {
 
   uploadFile = (userId: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}api/users/uploadFile`;
+      let url = `${API_URL}api/advertises/uploadFile`;
       this.apiService.getWithToken(url).subscribe(
         (res) => {
           resolve(res);
@@ -77,9 +79,9 @@ export class UserService {
     });
   };
 
-  remove = (userId: any): Promise<Object> => {
+  remove = (categoryId: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}api/users/delete-user?userId=${userId}`;
+      let url = `${API_URL}api/advertises/delete-adv?id=${categoryId}`;
       this.apiService.getWithToken(url).subscribe(
         (res) => {
           resolve(res);

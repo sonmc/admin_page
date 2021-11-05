@@ -16,7 +16,7 @@ export class AuthService {
 
   login = (username: string, password: string): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}users/authenticate`;
+      let url = `${API_URL}api/users/authenticate`;
       this.httpClient.post(url, { username, password }).subscribe(
         (res) => {
           resolve(res);

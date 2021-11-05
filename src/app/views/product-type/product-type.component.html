@@ -4,7 +4,7 @@
             <li class="breadcrumb-item"><a href="./">Trang chủ</a></li>
             <li class="breadcrumb-item">Quản lí loại sản phẩm</li>
         </ol>
-        <button class="btn btn-success btn-sm">+ Thêm</button>
+        <button class="btn btn-success btn-sm" (click)="openModalUpdate('')">+ Thêm</button>
     </div>
     <div class="d-sm-flex align-items-center justify-content-between mb-2">
         <ol class="breadcrumb">
@@ -19,11 +19,11 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Tên loại sản phẩm</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="inputEmail3"
-                                    placeholder="Tên loại sản phẩm">
+                                <input type="text" name="category_name" [(ngModel)]="dataSearch.category_name"
+                                    class="form-control" id="inputEmail3" placeholder="Tên loại sản phẩm">
                             </div>
                             <div class="col-sm-2">
-                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                <button type="button" (click)="search()" class="btn btn-primary">Tìm kiếm</button>
                             </div>
                         </div>
                     </form>
@@ -45,17 +45,48 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let ca of categories; index as i">
-                                <td>{{i}}</td>
-                                <td>{{ca.Name_Category}}</td>
+                                <td>{{i+1}}</td>
+                                <td>{{ca.name_Category}}</td>
                                 <td>
                                     <button type="button" (click)="openModalUpdate(ca)"
                                         class="btn btn-primary btn-sm">Sửa</button>
-                                    <button type="button" (click)="remove(ca.ID)"
+                                    <button type="button" (click)="remove(ca.id)"
                                         class="btn btn-danger btn-sm">Xoá</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="updateCaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nhập thông tin loại sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="ten">Tên loại sản phẩm </label>
+                                <input type="text" [(ngModel)]="category.name_Category" class="form-control" name="ten">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <h4 style="color: red;"><i>{{messageError}}</i></h4>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" (click)="resetFormAddCa()" class="btn btn-default">Làm mới</button>
+                    <button type="button" (click)="save()" class="btn btn-success">Đồng ý</button>
+                    <button type="button" (click)="close()" class="btn btn-default">Đóng lại</button>
                 </div>
             </div>
         </div>

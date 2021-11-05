@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { API_URL } from 'src/app/containers/constants/config';
+import { CommonService } from 'src/app/containers/services/common/common.service';
 import { UserService } from '../../containers/services/user/user.service';
 
 declare var $: any;
@@ -13,6 +15,7 @@ export class UserComponent implements OnInit {
   users: any = [];
   type: string = 'CREATE';
   messageError: string = '';
+  uploadStatus: string = '';
   dataSearch: any = {
     taikhoan: '',
     hoten: '',
@@ -32,8 +35,10 @@ export class UserComponent implements OnInit {
     confirmPwd: '',
   };
   user: any = {};
+
   constructor(
     public userService: UserService,
+    private commonService: CommonService,
     public router: Router,
     private toastr: ToastrService
   ) {}
@@ -52,6 +57,7 @@ export class UserComponent implements OnInit {
   }
 
   openModalCreate = (userDetail: any) => {
+    this.uploadStatus = '';
     if (userDetail) {
       this.user = Object.assign({}, userDetail);
       this.type = 'UPDATE';
@@ -62,6 +68,7 @@ export class UserComponent implements OnInit {
 
     $('#updateUserModal').modal('show');
   };
+
   validationFormData = () => {
     let isDataCorrect = true;
     if (
@@ -79,9 +86,11 @@ export class UserComponent implements OnInit {
 
     return isDataCorrect;
   };
+
   updateNgaySinh = (event: any) => {
     this.user.ngaysinh = event.target.value;
   };
+
   create = (userCreate: any) => {
     this.userService
       .create(userCreate)
@@ -161,20 +170,19 @@ export class UserComponent implements OnInit {
     this.user = Object.assign({}, this.userDetault);
   };
 
-  toBase64 = (file: any) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-
-  uploadFile = async (event: Event) => {
+  uploadFile = (event: Event) => {
     const element = event.currentTarget as HTMLInputElement;
     let file = element.files![0];
     if (file) {
-      const result = await this.toBase64(file).catch((e) => Error(e));
-      this.user.image_url = result;
+      this.commonService
+        .upload(file)
+        .then((res: any) => {
+          this.uploadStatus = res.message;
+          this.user.image_url = API_URL + res.data;
+        })
+        .catch((e) => {
+          window.alert('Connection Error !');
+        });
     }
   };
 }

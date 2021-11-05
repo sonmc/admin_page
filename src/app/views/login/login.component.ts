@@ -40,11 +40,6 @@ export class LoginComponent {
         .login(value['username'], value['password'])
         .then((res: any) => {
           if (res) {
-            this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(
-              'data:image/jpg;base64,' + res.image_url
-            );
-            console.log(this.imagePath);
-            debugger;
             this.authService.saveLocal({
               token: res.token,
               avatar: res.image_url,
